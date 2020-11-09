@@ -2043,10 +2043,11 @@ menu-background allows the menu applet to be themed separately from other applet
 }
 
 .desklet-with-borders {
-    border: 0px solid #5294e2;
+    border: 0px; 
+    padding: 10px;
     background-color: rgba(53, 57, 69, 0.75);
     color: #fff;
-    border-radius: 1px;
+    border-radius: 20px;
 }
 
 .desklet-with-borders-and-header {
