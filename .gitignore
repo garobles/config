@@ -1,0 +1,10 @@
+*
+!.gitignore
+!.bash_aliases
+!.themes/
+!.themes/CBlue/
+!.themes/CBlue/*
+!.themes/CBlue/**/*
+!.config/
+!.config/nvim/
+!.config/nvim/init.vim

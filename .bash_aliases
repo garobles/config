@@ -11,18 +11,23 @@ alias 390="cd ~/3b/se390 && ls"
 alias 464="cd ~/3b/se464 && ls"
 alias open="xdg-open"
 alias gs="git status"
+alias r="ranger"
 alias vim="nvim"
+alias godot="~/Repos/godot/bin/Godot_v3.2.3-stable_x11.64"
 
 # Command to rename by pattern
 rn () {
-    pattern=${1}
-    to=${2}
-    if [ $pattern == "" ]; then
+    pattern="${1}"
+    to="${2}"
+    if [ "$pattern" == "" ]; then
         echo "needs pattern";
     else
-        for f in $(eval ls "*$pattern*" -d); do
-            mv "$f" "${f/$pattern/$to}";
+        SAVEIFS=$IFS   # Save current IFS
+        IFS=$'\n'      # Change IFS to new line
+        for f in $(eval ls "*'$pattern'*" -d); do
+            mv -iv "$f" "${f/$pattern/$to}";
         done;
+        IFS=$SAVEIFS   # Restore IFS
     fi;
 }
 
@@ -37,9 +42,14 @@ export VISUAL=nvim
 # enable vi mode
 set -o vi
 # set custom PS1
-_SYMBOL=$(tput setaf 3)
-_TIME=$(tput setaf 0)
-_HOST=$(tput setaf 4)
-_RESET=$(tput sgr0)
-_BOLD=$(tput bold)
-export PS1="${_TIME}\D{%R}${_SYMBOL}@${_HOST}\H${BOLD}\\\\\W${_SYMBOL}\$ ${_RESET} "
+_SYMBOL='\[$(tput setaf 11)\]'
+_BLACK='\[$(tput setaf 8)\]'
+_TIME='\[$(tput sgr0)\]'
+_HOST='\[$(tput setaf 6)\]'
+_RESET='\[$(tput sgr0)\]'
+_DIR='\[$(tput setaf 4)\]'
+export PS1="\n${_TIME}\D{%R}${_BLACK}@${_HOST}\H${_SYMBOL}${_BLACK}:${_DIR}\W${_SYMBOL}\$ ${_RESET}"
+
+# needed for vulkan development
+source ~/Repos/VulkanSdk/setup-env.sh
+export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
